@@ -26,7 +26,8 @@ struct aligned_allocator : public std::allocator<T>
 	// allocate
 #if defined(_MSC_VER)
 	pointer allocate(size_type c, const void* hint = 0) {
-		return static_cast<pointer>( simde_mm_malloc( sizeof(T)*c, TAlign ) );
+		
+		return static_cast<pointer>( _aligned_malloc(sizeof(T) * c, TAlign) );
 	}
 #elif defined(__MINGW32__)
 	T* allocate(std::size_t c) {
@@ -50,7 +51,8 @@ struct aligned_allocator : public std::allocator<T>
 	// deallocate
 #if defined(_MSC_VER)
 	void deallocate(pointer p, size_type n) {
-		simde_mm_free( p );
+		//simde_mm_free( p );
+		_aligned_free(p);
 	}
 #elif defined(__MINGW32__)
 	void deallocate( T* p, std::size_t n ) {

@@ -16,6 +16,13 @@
 
 #include "BitmapInfomation.h"
 
+
+#ifdef _WIN32
+
+#include <windows.h>
+#include <wingdi.h>
+#endif
+
 //---------------------------------------------------------------------------
 extern void TVPSetFontCacheForLowMem();
 //---------------------------------------------------------------------------
@@ -84,7 +91,7 @@ public:
 
 	const BitmapInfomation* GetBitmapInfomation() const { return BitmapInfo; }
 #ifdef _WIN32
-	const BITMAPINFO * GetBITMAPINFO() const { return BitmapInfo->GetBITMAPINFO(); }
+	const BITMAPINFO * GetBITMAPINFO() const { return (const BITMAPINFO*)BitmapInfo->GetBITMAPINFO(); }
 	const BITMAPINFOHEADER * GetBITMAPINFOHEADER() const { return (const BITMAPINFOHEADER*)( BitmapInfo->GetBITMAPINFO() ); }
 #endif
 

@@ -28,6 +28,8 @@
 	to input/output text files.
 */
 
+#define TVP_TEXT_READ_ANSI_MBCS
+
 #ifdef TVP_TEXT_READ_ANSI_MBCS
 static ttstr DefaultReadEncoding = TJS_W("Shift_JIS");
 #else
@@ -155,6 +157,7 @@ public:
 				tjs_uint8 mark2[1] = {0};
 				Stream->Read(mark2, 1);
 				if(mark[0] == 0xef && mark[1] == 0xbb && mark2[0] == 0xbf) {
+					printf("UTF8 BOM\n");
 					// UTF-8 BOM
 					tjs_uint size = (tjs_uint)(Stream->GetSize()-3);
 					tjs_uint8 *nbuf = new tjs_uint8[size + 1];
@@ -163,7 +166,11 @@ public:
 						Stream->ReadBuffer(nbuf, size);
 						nbuf[size] = 0; // terminater
 						BufferLen = TVPUtf8ToWideCharString((const char*)nbuf, NULL);
-						if(BufferLen == (size_t)-1) TVPThrowExceptionMessage(TJSNarrowToWideConversionError);
+						if (BufferLen == (size_t)-1)
+						{
+							printf("Given failed string: %s", nbuf);
+							TVPThrowExceptionMessage(TJSNarrowToWideConversionError);
+						}
 						Buffer = new tjs_char [ BufferLen +1];
 						TVPUtf8ToWideCharString((const char*)nbuf, Buffer);
 					}
@@ -186,13 +193,23 @@ public:
 						Stream->ReadBuffer(nbuf, size);
 						nbuf[size] = 0; // terminater
 						if( encoding == TJS_W("UTF-8") ) {
+							printf("UTF8 sans BOM\n");
 							BufferLen = TVPUtf8ToWideCharString((const char*)nbuf, NULL);
-							if(BufferLen == (size_t)-1) TVPThrowExceptionMessage(TJSNarrowToWideConversionError);
+							if (BufferLen == (size_t)-1)
+							{
+								printf("Given failed string: %s", nbuf);
+								TVPThrowExceptionMessage(TJSNarrowToWideConversionError);
+							}
 							Buffer = new tjs_char [ BufferLen +1];
 							TVPUtf8ToWideCharString((const char*)nbuf, Buffer);
 						} else if( encoding == TJS_W("Shift_JIS") ) {
+							printf("Shift-JIS\n");
 							BufferLen = TJS_narrowtowidelen((tjs_nchar*)nbuf);
-							if(BufferLen == (size_t)-1) TVPThrowExceptionMessage(TJSNarrowToWideConversionError);
+							if (BufferLen == (size_t)-1)
+							{
+								printf("Given failed string: %s", nbuf);
+								TVPThrowExceptionMessage(TJSNarrowToWideConversionError);
+							}
 							Buffer = new tjs_char [ BufferLen +1];
 							TJS_narrowtowide(Buffer, (tjs_nchar*)nbuf, BufferLen);
 						} else {

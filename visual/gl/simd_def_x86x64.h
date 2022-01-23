@@ -23,10 +23,10 @@
 #endif
 #pragma warning(push)
 #pragma warning(disable : 4799)	// ignore simde_mm_empty request.
-#ifndef simde_mm_cvtsi64_m64
+#ifndef simde_m_from_int64
 __inline simde__m64 simde_mm_cvtsi64_m64( __int64 v ) { simde__m64 ret; ret.m64_i64 = v; return ret; }
 #endif
-#ifndef simde_mm_cvtm64_si64
+#ifndef simde_m_to_int64
 __inline __int64 simde_mm_cvtm64_si64( simde__m64 v ) { return v.m64_i64; }
 #endif
 #pragma warning(pop)

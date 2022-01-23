@@ -22,6 +22,10 @@
 #include "tjsDebug.h"
 #include "tjsOctPack.h"
 
+#ifdef _WIN32
+#undef GetMessage
+#endif
+
 #ifdef ENABLE_DEBUGGER
 #include "debugger.h"
 #endif // ENABLE_DEBUGGER

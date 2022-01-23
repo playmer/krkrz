@@ -10,7 +10,7 @@
 #include "OpenGLHeaderSDL2.h"
 #else
 #ifdef WIN32
-#include "OpenGLHeaderWin32.h"
+//#include "OpenGLHeaderWin32.h"
 #elif defined( ANDROID )
 #include <android/native_window.h>
 #include <EGL/egl.h>

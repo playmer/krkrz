@@ -23,9 +23,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #if defined(_WIN32)
-#if 0
+#if 1
 #if defined(_M_IX86) || defined(_M_X64) || defined(__i386__) || defined(__x86_64__)
-#include <x86intrin.h>
+#include <intrin.h>
 #include "xmmlib.h"
 #endif
 #endif
@@ -263,6 +263,7 @@ static inline simde__m128 VFast_arctan2_F4_SSE(simde__m128 y, simde__m128 x)
 */
 }
 //---------------------------------------------------------------------------
+#endif
 
 
 //---------------------------------------------------------------------------
@@ -281,6 +282,7 @@ static inline void SetRoundingModeToNearest_SSE()
 //---------------------------------------------------------------------------
 
 
+#ifndef _WIN32
 //---------------------------------------------------------------------------
 /**
  * sincos の高速版 (4x float, SSE版)

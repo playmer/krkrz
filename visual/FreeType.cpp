@@ -743,30 +743,30 @@ tFreeTypeFace::tFreeTypeFace(const std::vector<tjs_string> &fontname, tjs_uint32
 		{
 			Faces[i]->Face.reset( FreeTypeFaceList->GetFace( fontname[i], options ) );
 		}
-#ifdef _WIN32
+//#ifdef _WIN32
+//		if( Faces[i]->Face == nullptr )
+//		{
+//			if( options & TVP_FACE_OPTIONS_FILE )
+//			{
+//				// ファイルを開く
+//				Faces[i]->Face.reset( new tGenericFreeTypeFace( fontname[i], options ) );
+//				// 例外がここで発生する可能性があるので注意
+//			} else
+//			{
+//				// ネイティブのフォント名による指定 (プラットフォーム依存)
+//				Faces[i]->Face.reset( new tNativeFreeTypeFace( fontname[i], options ) );
+//				// 例外がここで発生する可能性があるので注意
+//			}
+//		}
+//#else
 		if( Faces[i]->Face == nullptr )
 		{
 			if( options & TVP_FACE_OPTIONS_FILE )
 			{
-				// ファイルを開く
-				Faces[i]->Face.reset( new tGenericFreeTypeFace( fontname[i], options ) );
-				// 例外がここで発生する可能性があるので注意
-			} else
-			{
-				// ネイティブのフォント名による指定 (プラットフォーム依存)
-				Faces[i]->Face.reset( new tNativeFreeTypeFace( fontname[i], options ) );
-				// 例外がここで発生する可能性があるので注意
-			}
-		}
-#else
-		if( Faces[i]->Face == nullptr )
-		{
-			if( options & TVP_FACE_OPTIONS_FILE )
-			{
 				Faces[i]->Face.reset( new tGenericFreeTypeFace( fontname[i], options ) );
 			}
 		}
-#endif
+//#endif
 
 		if( Faces[i]->Face == nullptr )
 		{

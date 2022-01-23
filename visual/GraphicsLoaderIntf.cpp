@@ -12,6 +12,7 @@
 #include "tjsCommHead.h"
 
 #include <stdlib.h>
+#include <istream_compat.h>
 #include "GraphicsLoaderIntf.h"
 #include "GraphicsLoaderImpl.h"
 #include "LayerBitmapIntf.h"

@@ -25,9 +25,9 @@
 #include "SysInitImpl.h"
 #include "StorageIntf.h"
 #include "DebugIntf.h"
-#ifdef _WIN32
-#include "WindowFormUnit.h"
-#endif
+//#ifdef _WIN32
+//#include "WindowFormUnit.h"
+//#endif
 #include "UtilStreams.h"
 
 //#include "FontSelectFormUnit.h"
@@ -38,10 +38,10 @@
 #include "FontSystem.h"
 #include "FreeType.h"
 #include "FreeTypeFontRasterizer.h"
-#ifdef _WIN32
-#include "TVPSysFont.h"
-#include "GDIFontRasterizer.h"
-#endif
+//#ifdef _WIN32
+//#include "TVPSysFont.h"
+//#include "GDIFontRasterizer.h"
+//#endif
 #include "BitmapBitsAlloc.h"
 
 #ifdef __ANDROID__
@@ -77,9 +77,9 @@ static tjs_int TVPCurrentFontRasterizers = FONT_RASTER_FREE_TYPE;
 void TVPInializeFontRasterizers() {
 	if( TVPFontRasterizersInit == false ) {
 		TVPFontRasterizers[FONT_RASTER_FREE_TYPE] = new FreeTypeFontRasterizer();
-#ifdef _WIN32
-		TVPFontRasterizers[FONT_RASTER_GDI] = new GDIFontRasterizer();
-#endif
+//#ifdef _WIN32
+//		TVPFontRasterizers[FONT_RASTER_GDI] = new GDIFontRasterizer();
+//#endif
 		TVPFontSystem = new FontSystem();
 		TVPFontRasterizersInit = true;
 	}
@@ -380,9 +380,9 @@ static tTVPCharacterData * TVPGetCharacter(const tTVPFontAndCharacterData & font
 tTVPBitmap::tTVPBitmap(tjs_uint width, tjs_uint height, tjs_uint bpp, bool unpadding)
 {
 	// tTVPBitmap constructor
-#ifdef _WIN32
-	TVPInitWindowOptions(); // ensure window/bitmap usage options are initialized
-#endif
+//#ifdef _WIN32
+//	TVPInitWindowOptions(); // ensure window/bitmap usage options are initialized
+//#endif
 	RefCount = 1;
 
 	Allocate(width, height, bpp, unpadding); // allocate initial bitmap
@@ -391,9 +391,9 @@ tTVPBitmap::tTVPBitmap(tjs_uint width, tjs_uint height, tjs_uint bpp, bool unpad
 tTVPBitmap::tTVPBitmap(tjs_uint width, tjs_uint height, tjs_uint bpp, void* bits)
 {
 	// tTVPBitmap constructor
-#ifdef _WIN32
-	TVPInitWindowOptions(); // ensure window/bitmap usage options are initialized
-#endif
+//#ifdef _WIN32
+//	TVPInitWindowOptions(); // ensure window/bitmap usage options are initialized
+//#endif
 	RefCount = 1;
 
 	BitmapInfo = new BitmapInfomation( width, height, bpp );
@@ -432,9 +432,9 @@ tTVPBitmap::~tTVPBitmap()
 tTVPBitmap::tTVPBitmap(const tTVPBitmap & r)
 {
 	// constructor for cloning bitmap
-#ifdef _WIN32
-	TVPInitWindowOptions(); // ensure window/bitmap usage options are initialized
-#endif
+//#ifdef _WIN32
+//	TVPInitWindowOptions(); // ensure window/bitmap usage options are initialized
+//#endif
 	RefCount = 1;
 
 	// allocate bitmap which has the same metrics to r

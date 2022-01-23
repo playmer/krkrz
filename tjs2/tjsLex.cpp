@@ -23,6 +23,10 @@
 
 #include <ctype.h>
 
+#ifdef _WIN32
+#undef GetMessage
+#endif
+
 namespace TJS
 {
 

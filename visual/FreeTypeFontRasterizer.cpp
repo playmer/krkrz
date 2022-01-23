@@ -223,9 +223,9 @@ bool FreeTypeFontRasterizer::AddFont( const ttstr& storage, std::vector<tjs_stri
 //---------------------------------------------------------------------------
 extern void TVPGetFontListFromFreeType(std::vector<ttstr> & list, tjs_uint32 flags, const tTVPFont & font );
 void FreeTypeFontRasterizer::GetFontList(std::vector<ttstr> & list, tjs_uint32 flags, const struct tTVPFont & font ) {
-#ifdef _WIN32
-	TVPGetFontList( list, flags, font );
-#endif
+//#ifdef _WIN32
+//	TVPGetFontList( list, flags, font );
+//#endif
 	TVPGetFontListFromFreeType( list, flags, font );
 }
 //---------------------------------------------------------------------------

@@ -1207,6 +1207,9 @@ void tTVPComplexRect::RectangleSub(tTVPRegionRect *r, const tTVPRect *rr)
 }
 //---------------------------------------------------------------------------
 
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 //---------------------------------------------------------------------------
 void tTVPComplexRect::DumpChain()
