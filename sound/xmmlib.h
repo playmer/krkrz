@@ -43,6 +43,7 @@
 #ifndef _XMMLIB_H_INCLUDED
 #define _XMMLIB_H_INCLUDED
 
+#include <cmath>
 #include "tjsCommHead.h"
 #include <memory.h>
 
