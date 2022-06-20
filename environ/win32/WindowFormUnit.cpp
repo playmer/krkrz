@@ -500,12 +500,6 @@ void TTVPWindowForm::TickBeat(){
 
 	if (SdlInputManager && TJSNativeInstance) {
 		SdlInputManager->Update();
-		//if (focused)
-		//	DIPadDevice->UpdateWithCurrentState();
-		//else
-		//	DIPadDevice->UpdateWithSuspendedState();
-		//
-
 
 		auto it = SdlInputMgr::sInstance->mControllers.find(0);
 		if (it != SdlInputMgr::sInstance->mControllers.end())

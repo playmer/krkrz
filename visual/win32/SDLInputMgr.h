@@ -9,16 +9,7 @@
 
 #include "tjsTypes.h"
 
-
 #include "SDL.h"
-//struct SDL_GameController;
-//struct SDL_ControllerAxisEvent;
-//struct SDL_ControllerButtonEvent;
-//
-//typedef uint8_t Uint8;
-//typedef int32_t Sint32;
-//typedef Sint32 SDL_JoystickID;
-//typedef int16_t Sint16;
 
 const char* ConvertToString(Uint8 aButton);
 size_t ConvertToIndex(Uint8 aButton);
@@ -44,8 +35,13 @@ public:
     std::array<bool, 15> mPreviousButtons;
     std::array<bool, 15> mCurrentButtons;
 
-    //glm::vec2 LeftStick;
-    //glm::vec2 RightStick;
+    struct RepeatInfo
+    {
+        ULONGLONG Time = 0; // When the key was pressed/last repeated
+        bool Interval = false; // Is this a subsequent repeat?
+    };
+    std::array<RepeatInfo, 15> RepeatWait;
+
     float LeftTrigger;
     float RightTrigger;
 
@@ -68,6 +64,10 @@ public:
     static SdlInputMgr* sInstance;
     std::map<SDL_JoystickID, Controller> mControllers;
 private:
+    void UpdateKeyRepeatTimes();
+
+    INT32 HoldTime = 500; // keyboard key-repeats hold-time
+    INT32 IntervalTime = 30; // keyboard key-repeats interval-time
 };
 
 bool SdlGetJoyPadAsyncState(tjs_uint keycode, bool getcurrent);
