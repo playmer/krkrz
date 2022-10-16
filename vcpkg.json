@@ -1,0 +1,14 @@
+{
+    "name": "krkrz",
+    "version-string": "0.1.0-dev",
+    "dependencies": [
+        "freetype",
+        "jxrlib",
+        "libjpeg-turbo",
+        "libpng",
+        "oniguruma",
+        "picojson",
+        "sdl2",
+        "zlib"
+    ]
+}

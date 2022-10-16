@@ -18,7 +18,7 @@
 #include "UtilStreams.h"
 #include "SysInitIntf.h"
 
-#include <zlib/zlib.h>
+#include <zlib.h>
 #include <algorithm>
 
 bool TVPAllowExtractProtectedStorage = true;

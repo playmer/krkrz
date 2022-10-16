@@ -751,7 +751,7 @@ void * TVPSearchAvailKMPWaveDecoder(const ttstr & storage, KMPMODULE ** module,
 //---------------------------------------------------------------------------
 // some service functions for plugin
 //---------------------------------------------------------------------------
-#include "zlib/zlib.h"
+#include "zlib.h"
 int ZLIB_uncompress(unsigned char *dest, unsigned long *destlen,
 	const unsigned char *source, unsigned long sourcelen)
 {

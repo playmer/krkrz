@@ -42,7 +42,6 @@ extern "C"
 {
 #include <turbojpeg.h>
 #define XMD_H
-#include <jinclude.h>
 #include <jpeglib.h>
 #include <jerror.h>
 }

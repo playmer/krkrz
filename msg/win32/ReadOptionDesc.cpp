@@ -1,6 +1,6 @@
 
 #include "tjsCommHead.h"
-#include "picojson.h"
+#include "picojson/picojson.h"
 #include "MsgIntf.h"
 #include "DebugIntf.h"
 #include "resource.h"

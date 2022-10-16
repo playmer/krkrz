@@ -2682,7 +2682,7 @@ static void __stdcall TVP_Stub_6cc8a24cc7ce23179d1d4ccab7a8c97b(const ttstr & na
 	return TVPUnregisterDSVideoCodec(name, guid, splitter, video, audio, formatdata);
 }
 
-#include <zlib/zlib.h>
+#include <zlib.h>
 /* function table is pretty large; is compressed via zlib */
 static tjs_uint8 compressed_functable[] = {
 0x78, 0x9c, 0xd5, 0x5d, 0x6b, 0x73, 0xdb, 0xba, 0xd1, 0xce, 0x4f, 0x49, 0x3f, 0x34, 0xa3, 0x93, 
