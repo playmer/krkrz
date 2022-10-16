@@ -115,19 +115,19 @@ PUBLIC
 ##################################
 ## tvpwin32
 set(CMAKE_ASM_NASM_COMPILE_OPTIONS "${CMAKE_ASM_NASM_COMPILE_OPTIONS} -safeseh -Xvc -fwin32")
-set(CMAKE_ASM_NASM_SOURCE_FILE_EXTENSIONS "asm;nasm;nas;S")
+#set(CMAKE_ASM_NASM_SOURCE_FILE_EXTENSIONS "asm;nasm;nas;S")
 
-add_executable(tvpwin32)
+add_executable(tvpwin32 WIN32)
 
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(freetype CONFIG REQUIRED)
-find_package(JPEG REQUIRED)
+find_package(libjpeg-turbo REQUIRED)
 find_package(oniguruma CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_path(PICOJSON_INCLUDE_DIRS "picojson/picojson.h" REQUIRED)
 
-message(STATUS "It's here: \n\t${PICOJSON_INCLUDE_DIRS}\n\t${JPEG_INCLUDE_DIR}")
+message(STATUS "It's here: \n\t${PICOJSON_INCLUDE_DIRS}\n\t${JPEG_INCLUDE_DIR}\n\t${JPEG_LIBRARIES}")
 
 
 target_link_libraries(tvpwin32 
@@ -135,7 +135,8 @@ PRIVATE
     ZLIB::ZLIB
     PNG::PNG
     freetype
-    ${JPEG_LIBRARIES}
+    libjpeg-turbo::jpeg
+    libjpeg-turbo::turbojpeg
     oniguruma::onig
     SDL2::SDL2
 )
@@ -185,10 +186,20 @@ PRIVATE
     platform/win32
 )
 
+
 target_sources(tvpwin32 
 PRIVATE
-    visual/IA32/tlg6_chroma.asm
-    visual/IA32/tlg6_golomb.asm
+    visual/IA32/tlg6_chroma.nas
+    visual/IA32/tlg6_golomb.nas
+)
+
+set_source_files_properties(visual/IA32/tlg6_chroma.nas PROPERTIES LANGUAGE ASM_NASM)
+set_source_files_properties(visual/IA32/tlg6_golomb.nas PROPERTIES LANGUAGE ASM_NASM)
+
+target_sources(tvpwin32 
+PRIVATE
+    vcproj/tvpwin32.rc
+    vcproj/dpi.manifest
 
     base/BinaryStream.cpp
     base/BinaryStream.h

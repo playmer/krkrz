@@ -36,7 +36,7 @@ class OptionDescReader {
 		std::map<std::string, picojson::value>::const_iterator v = obj.find(std::string(name));
 		if( v != obj.end() ) {
 			const picojson::value& val = v->second;
-			if( val.is<int>() ) {
+			if( val.is<double>() ) {
 				return (int)val.get<double>();
 			}
 		}
