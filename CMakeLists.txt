@@ -14,6 +14,9 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(CMAKE_TOOLCHAIN_FILE "${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake")
 endif()
 
+set(VCPKG_TARGET_TRIPLET "x86-windows-static")
+set(VCPKG_HOST_TRIPLET "${VCPKG_TARGET_TRIPLET}")
+
 ##################################
 ## Project Start
 project(krkrz LANGUAGES C CXX ASM_NASM)
@@ -129,14 +132,13 @@ find_path(PICOJSON_INCLUDE_DIRS "picojson/picojson.h" REQUIRED)
 
 message(STATUS "It's here: \n\t${PICOJSON_INCLUDE_DIRS}\n\t${JPEG_INCLUDE_DIR}\n\t${JPEG_LIBRARIES}")
 
-
 target_link_libraries(tvpwin32 
 PRIVATE 
     ZLIB::ZLIB
     PNG::PNG
     freetype
-    libjpeg-turbo::jpeg
-    libjpeg-turbo::turbojpeg
+    libjpeg-turbo::jpeg-static
+    libjpeg-turbo::turbojpeg-static
     oniguruma::onig
     SDL2::SDL2
 )
