@@ -14,17 +14,23 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(CMAKE_TOOLCHAIN_FILE "${vcpkg_SOURCE_DIR}/scripts/buildsystems/vcpkg.cmake")
 endif()
 
-set(VCPKG_TARGET_TRIPLET "x86-windows-static")
 set(VCPKG_HOST_TRIPLET "${VCPKG_TARGET_TRIPLET}")
 
 ##################################
 ## Project Start
 project(krkrz LANGUAGES C CXX ASM_NASM)
 
+add_definitions(/MP)
+
 ##################################
 ## windows7_samples_multimedia_base_classes
 add_library(windows7_samples_multimedia_base_classes)
 
+set_target_properties(windows7_samples_multimedia_base_classes
+PROPERTIES
+    MSVC_RUNTIME_LIBRARY
+        "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+)
 
 target_compile_definitions(windows7_samples_multimedia_base_classes
 PUBLIC
@@ -116,11 +122,25 @@ PUBLIC
 
 
 ##################################
-## tvpwin32
+## tvpwin
 set(CMAKE_ASM_NASM_COMPILE_OPTIONS "${CMAKE_ASM_NASM_COMPILE_OPTIONS} -safeseh -Xvc -fwin32")
 #set(CMAKE_ASM_NASM_SOURCE_FILE_EXTENSIONS "asm;nasm;nas;S")
 
-add_executable(tvpwin32 WIN32)
+
+message(STATUS "CMAKE_SIZEOF_VOID_P ${CMAKE_SIZEOF_VOID_P}")
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(ExecutableName tvpwin64)
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(ExecutableName tvpwin32)
+endif()
+
+add_executable(${ExecutableName} WIN32)
+
+set_target_properties(${ExecutableName}
+PROPERTIES
+    MSVC_RUNTIME_LIBRARY
+        "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+)
 
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
@@ -132,7 +152,7 @@ find_path(PICOJSON_INCLUDE_DIRS "picojson/picojson.h" REQUIRED)
 
 message(STATUS "It's here: \n\t${PICOJSON_INCLUDE_DIRS}\n\t${JPEG_INCLUDE_DIR}\n\t${JPEG_LIBRARIES}")
 
-target_link_libraries(tvpwin32 
+target_link_libraries(${ExecutableName} 
 PRIVATE 
     ZLIB::ZLIB
     PNG::PNG
@@ -143,13 +163,13 @@ PRIVATE
     SDL2::SDL2
 )
 
-target_include_directories(tvpwin32 
+target_include_directories(${ExecutableName} 
 PRIVATE 
     ${JPEG_INCLUDE_DIR}
     ${PICOJSON_INCLUDE_DIRS}
 )
 
-target_compile_definitions(tvpwin32
+target_compile_definitions(${ExecutableName}
 PUBLIC
     __WIN32__
     NO_STRICT
@@ -164,7 +184,7 @@ PUBLIC
     TVP_ENABLE_EXECUTE_AT_EXCEPTION
 )
 
-target_include_directories(tvpwin32
+target_include_directories(${ExecutableName}
 PRIVATE
     external/baseclasses
     movie/win32
@@ -188,17 +208,17 @@ PRIVATE
     platform/win32
 )
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    target_sources(${ExecutableName} 
+    PRIVATE
+        visual/IA32/tlg6_chroma.nas
+        visual/IA32/tlg6_golomb.nas
+    )
+    set_source_files_properties(visual/IA32/tlg6_chroma.nas PROPERTIES LANGUAGE ASM_NASM)
+    set_source_files_properties(visual/IA32/tlg6_golomb.nas PROPERTIES LANGUAGE ASM_NASM)
+endif()
 
-target_sources(tvpwin32 
-PRIVATE
-    visual/IA32/tlg6_chroma.nas
-    visual/IA32/tlg6_golomb.nas
-)
-
-set_source_files_properties(visual/IA32/tlg6_chroma.nas PROPERTIES LANGUAGE ASM_NASM)
-set_source_files_properties(visual/IA32/tlg6_golomb.nas PROPERTIES LANGUAGE ASM_NASM)
-
-target_sources(tvpwin32 
+target_sources(${ExecutableName} 
 PRIVATE
     vcproj/tvpwin32.rc
     vcproj/dpi.manifest
@@ -599,7 +619,17 @@ PRIVATE
     visual/WindowIntf.h
 )
 
-target_link_libraries(tvpwin32
+set_source_files_properties(
+    visual/gl/blend_function_avx2.cpp
+    visual/gl/ResampleImageAVX2.cpp
+    visual/gl/x86simdutilAVX2.cpp
+
+PROPERTIES 
+    COMPILE_OPTIONS 
+        /arch:AVX2
+)
+
+target_link_libraries(${ExecutableName}
 PRIVATE
     kernel32.lib
     user32.lib
@@ -623,3 +653,5 @@ PRIVATE
     windows7_samples_multimedia_base_classes
     setupapi.lib
 )
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${ExecutableName}) 

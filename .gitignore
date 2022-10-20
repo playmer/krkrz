@@ -16,4 +16,5 @@
 *.bak
 *.map
 .vs/
-build/
+buildx86/
+buildx64/
