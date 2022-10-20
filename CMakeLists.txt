@@ -124,10 +124,7 @@ PUBLIC
 ##################################
 ## tvpwin
 set(CMAKE_ASM_NASM_COMPILE_OPTIONS "${CMAKE_ASM_NASM_COMPILE_OPTIONS} -safeseh -Xvc -fwin32")
-#set(CMAKE_ASM_NASM_SOURCE_FILE_EXTENSIONS "asm;nasm;nas;S")
 
-
-message(STATUS "CMAKE_SIZEOF_VOID_P ${CMAKE_SIZEOF_VOID_P}")
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(ExecutableName tvpwin64)
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)

@@ -1,3 +1,31 @@
+# KirikiriZ CMake
+
+## Requirements
+- [Nasm (>= 2.10.09)](https://www.nasm.us/pub/nasm/releasebuilds)
+- [CMake (>= 3.24.0)](https://cmake.org/download/)
+- [Visual Studio 2022 Community](https://visualstudio.microsoft.com/vs/community/)
+  - Make sure to install the "Desktop Development with C++" workload during installation
+
+CMake and Nasm will need to be in your PATH, such that running the following commands would produce the following output.
+
+```batch
+> nasm -v
+NASM version 2.10.09 compiled on Jul 22 2013
+> cmake --version
+cmake version 3.24.2
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+```
+
+## How to Build
+
+If building is all you care about, simply run:
+```batch
+GenerateProjects.bat
+```
+From inside the repo's source directory. As long as the above tooling is correctly installed and configured, an `output` directory will be created which contains `tvpwin64.exe` and `tvpwin32.exe`.
+
+# Original Description Follows
 # 吉里吉里Z
 
 吉里吉里Zは吉里吉里2フォークプロジェクトです。  
