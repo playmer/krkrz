@@ -3,6 +3,7 @@
 ## Requirements
 - [Nasm (>= 2.10.09)](https://www.nasm.us/pub/nasm/releasebuilds)
 - [CMake (>= 3.24.0)](https://cmake.org/download/)
+- [Git (>= 2.30)](https://git-scm.com/downloads)
 - [Visual Studio 2022 Community](https://visualstudio.microsoft.com/vs/community/)
   - Make sure to install the "Desktop Development with C++" workload during installation
 
@@ -15,6 +16,8 @@ NASM version 2.10.09 compiled on Jul 22 2013
 cmake version 3.24.2
 
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
+> git --version
+git version 2.33.1.windows.1
 ```
 
 ## How to Build
