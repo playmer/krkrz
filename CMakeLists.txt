@@ -142,6 +142,11 @@ PROPERTIES
         "MultiThreaded$<$<CONFIG:Debug>:Debug>"
 )
 
+target_link_options(${ExecutableName}
+PUBLIC
+    /LARGEADDRESSAWARE
+)
+
 find_package(ZLIB REQUIRED)
 find_package(PNG REQUIRED)
 find_package(freetype CONFIG REQUIRED)
