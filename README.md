@@ -6,7 +6,7 @@
 - [Visual Studio 2022 Community](https://visualstudio.microsoft.com/vs/community/)
   - Make sure to install the "Desktop Development with C++" workload during installation
 
-CMake and Nasm will need to be in your PATH, such that running the following commands would produce the following output.
+CMake and Nasm will need to be in your PATH, such that running the following commands would produce something similar to the following output.
 
 ```batch
 > nasm -v
