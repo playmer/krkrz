@@ -1,8 +1,10 @@
 # KirikiriZ CMake
 
 ## Requirements
-- [Nasm (>= 2.10.09)](https://www.nasm.us/pub/nasm/releasebuilds)
-- [CMake (>= 3.24.0)](https://cmake.org/download/)
+- Windows 10 or Higher (for building)
+  - Technically Windows 8 and 8.1 likely can also build this project, but that's currently untested.
+- [Nasm (>= 2.10.09, <=2.14.03rc2), x64 or x86 should be fine](https://www.nasm.us/pub/nasm/releasebuilds)
+- [CMake (>= 3.24.0) x64](https://cmake.org/download/)
 - [Git (>= 2.30)](https://git-scm.com/downloads)
 - [Visual Studio 2022 Community](https://visualstudio.microsoft.com/vs/community/)
   - Make sure to install the "Desktop Development with C++" workload during installation
@@ -22,6 +24,9 @@ git version 2.33.1.windows.1
 
 ## How to Build
 
+Ensure your cloned repository has it's submodules checked out. We only specifically require the baseclasses submodule checked out. It's likely we'll bring this source in-tree in the future so we don't need to rely on a submodule. This code is from a (likely) frozen Windows 7 code sample, so it's fairly safe to bring in.
+
+### Build Only
 If building is all you care about, simply run:
 ```batch
 GenerateProjects.bat
